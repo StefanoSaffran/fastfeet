@@ -5,12 +5,19 @@ import { isBefore, parseISO, getHours, startOfDay, endOfDay } from 'date-fns';
 
 import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
+import File from '../models/File';
 
 class StatusController {
   async index(req, res) {
     const { id } = req.params;
 
-    const deliverymanExists = await Deliveryman.findByPk(id);
+    const deliverymanExists = await Deliveryman.findByPk(id, {
+      include: {
+        model: File,
+        as: 'avatar',
+        attributes: ['name', 'path', 'url'],
+      },
+    });
 
     if (!deliverymanExists) {
       return res.status(400).json({ error: 'Deliveryman not found.' });
@@ -43,7 +50,7 @@ class StatusController {
       offset: (page - 1) * 10,
     });
 
-    return res.json(deliveries);
+    return res.json({ deliveries, deliveryman: deliverymanExists });
   }
 
   async update(req, res) {
