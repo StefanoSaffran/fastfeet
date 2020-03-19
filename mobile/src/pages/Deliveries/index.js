@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, Image, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
@@ -11,6 +12,7 @@ import { signOut } from '~/store/modules/deliveryman/actions';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
+import DeliveryCard from '~/components/DeliveryCard';
 
 import {
   Container,
@@ -27,13 +29,56 @@ import {
   TitleContainer,
   LeftTitle,
   RightTitleContainer,
+  RightViewButton,
   RightTitle,
+  DeliveryList,
 } from './styles';
 
 export default function Deliveries() {
+  const [deliveries, setDeliveries] = useState([]);
+  const [delivered, setDelivered] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
   const profile = useSelector(state => state.deliveryman.profile);
   const dispatch = useDispatch();
-  const [delivered, setDelivered] = useState(false);
+  const isFocused = useIsFocused();
+
+  /* const loadDeliveries = async () => {
+    try {
+      const { data } = await api.get(`deliveryman/${profile.id}/deliveries`, {
+        params: { page, delivered },
+      });
+
+      setDeliveries(
+        page > 1 ? [...deliveries, data.deliveries] : data.deliveries
+      );
+    } catch (err) {
+    } finally {
+      setRefreshing(false);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+      loadDeliveries();
+    }
+  }, [isFocused, delivered]); */
+
+  const items = [
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+  ];
 
   const nameInitials = !profile.avatar
     ? profile.name.split(' ').map(n => n.charAt(0).toUpperCase())
@@ -72,17 +117,25 @@ export default function Deliveries() {
           <TitleContainer>
             <LeftTitle>Entregas</LeftTitle>
             <RightTitleContainer>
-              <RightTitle
+              <RightViewButton
                 active={!delivered}
                 onPress={() => setDelivered(false)}
               >
-                Pendentes
-              </RightTitle>
-              <RightTitle active={delivered} onPress={() => setDelivered(true)}>
-                Entregues
-              </RightTitle>
+                <RightTitle active={!delivered}>Pendentes</RightTitle>
+              </RightViewButton>
+              <RightViewButton
+                active={delivered}
+                onPress={() => setDelivered(true)}
+              >
+                <RightTitle active={delivered}>Entregues</RightTitle>
+              </RightViewButton>
             </RightTitleContainer>
           </TitleContainer>
+          <DeliveryList
+            data={items}
+            keyExtractor={item => String(item.id)}
+            renderItem={() => <DeliveryCard />}
+          />
         </Body>
       </Container>
     </Background>

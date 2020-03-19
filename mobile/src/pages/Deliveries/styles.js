@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.SafeAreaView`
@@ -50,7 +50,7 @@ export const LogoutButton = styled(TouchableOpacity)`
 `;
 
 export const Body = styled.View`
-  padding: 0 20px;
+  margin: 0 15px;
 `;
 
 export const TitleContainer = styled.View`
@@ -70,12 +70,26 @@ export const RightTitleContainer = styled.View`
   align-items: center;
 `;
 
+export const RightViewButton = styled.TouchableOpacity`
+  margin: 0 7.5px;
+  ${({ active }) =>
+    active &&
+    css`
+      border-color: #7d40e7;
+      border-bottom-width: 1px;
+      border-style: solid;
+    `}
+`;
+
 export const RightTitle = styled.Text`
   font-size: 12px;
   font-weight: bold;
   margin: auto;
-  padding: 0 7.5px;
-  line-height: 25px;
+  line-height: 15px;
   color: ${({ active }) => (active ? '#7D40E7' : '#999')};
-  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 `;
+
+export const DeliveryList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: { paddingTop: 10, paddingBottom: 150 },
+})``;
