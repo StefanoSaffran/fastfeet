@@ -27,9 +27,9 @@ export default function createRouter(isSigned = false) {
         },
         style: {
           backgroundColor: '#fff',
-          height: 70,
-          paddingTop: 10,
-          paddingBottom: 10,
+          height: 65,
+          paddingTop: 8,
+          paddingBottom: 8,
         },
         keyboardHidesTabBar: true,
       }}
