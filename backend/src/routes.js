@@ -23,7 +23,7 @@ routes.get('/deliveryman/:id/deliveries', StatusController.index);
 routes.put('/deliveryman/:id/deliveries/:deliveryId', StatusController.update);
 
 routes.post('/delivery/:id/problems', DeliveryProblemsCtrller.store);
-routes.delete('/problem/:id/cancel-delivery', DeliveryProblemsCtrller.delete);
+routes.get('/delivery/:id/problems', DeliveryProblemsCtrller.show);
 
 /**
  * Authentication middleware, all routes that
@@ -32,7 +32,7 @@ routes.delete('/problem/:id/cancel-delivery', DeliveryProblemsCtrller.delete);
 routes.use(authMiddleware);
 
 routes.get('/delivery/problems', DeliveryProblemsCtrller.index);
-routes.get('/delivery/:id/problems', DeliveryProblemsCtrller.show);
+routes.delete('/problem/:id/cancel-delivery', DeliveryProblemsCtrller.delete);
 
 routes.post('/recipients', RecipientController.store);
 routes.get('/recipients', RecipientController.index);
