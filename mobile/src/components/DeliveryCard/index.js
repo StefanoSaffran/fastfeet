@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { format, parseISO } from 'date-fns';
+
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 import {
@@ -29,7 +31,7 @@ export default function DeliveryCard({ delivery }) {
     <Container>
       <Header>
         <Icon name="truck" color="#7D40E7" size={27} />
-        <Delivery>Encomenda 01</Delivery>
+        <Delivery>Encomenda {delivery.id}</Delivery>
       </Header>
       <Body>
         <Slider />
@@ -38,10 +40,10 @@ export default function DeliveryCard({ delivery }) {
             <Circle reached />
           </ProgressStage>
           <ProgressStage>
-            <Circle reached />
+            <Circle reached={delivery?.start_date} />
           </ProgressStage>
           <ProgressStage>
-            <Circle reached={false} last />
+            <Circle reached={delivery?.end_date} last />
           </ProgressStage>
         </ProgressContainer>
         <ProgressContainer>
@@ -59,14 +61,16 @@ export default function DeliveryCard({ delivery }) {
       <Footer>
         <DateContainer>
           <Label>Data</Label>
-          <Text>14/01/2020</Text>
+          <Text>{format(parseISO(delivery.createdAt), 'dd/MM/yyyy')}</Text>
         </DateContainer>
         <CityContainer>
           <Label>Cidade</Label>
-          <Text>Diadema</Text>
+          <Text>{delivery.recipient.city}</Text>
         </CityContainer>
         <DetailsButton>
-          <DetailsButtonText onPress={() => navigation.navigate('Details')}>
+          <DetailsButtonText
+            onPress={() => navigation.navigate('Details', { delivery })}
+          >
             Ver detalhes
           </DetailsButtonText>
         </DetailsButton>

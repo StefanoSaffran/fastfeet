@@ -22,9 +22,9 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <StatusBar backgroundColor="#fff" />
+          <StatusBar backgroundColor="#fff" barStyle="dark-content" />
           <Index />
-          <FlashMessage icon="auto" duration={3000} style={{ marginTop: 25 }} />
+          <FlashMessage icon="auto" duration={3000} />
         </PersistGate>
       </Provider>
     </NavigationContainer>
@@ -32,4 +32,4 @@ export default function App() {
 }
 
 // StatusBar.setTranslucent(true);
-StatusBar.setBarStyle('dark-content');
+// StatusBar.setBarStyle('dark-content');
