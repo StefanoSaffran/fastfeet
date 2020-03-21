@@ -5,6 +5,7 @@ import { isBefore, parseISO, getHours, startOfDay, endOfDay } from 'date-fns';
 
 import Delivery from '../models/Delivery';
 import Deliveryman from '../models/Deliveryman';
+import Recipient from '../models/Recipient';
 import File from '../models/File';
 
 class StatusController {
@@ -25,32 +26,65 @@ class StatusController {
 
     const { page = 1, delivered = false } = req.query;
 
-    if (delivered) {
-      const deliveries = await Delivery.findAll({
+    const isDelivered = delivered === 'true';
+
+    if (isDelivered) {
+      const { count, rows: deliveries } = await Delivery.findAndCountAll({
         where: {
           end_date: {
             [Op.not]: null,
           },
           deliveryman_id: id,
         },
-        limit: 10,
-        offset: (page - 1) * 10,
+        order: [['created_at', 'ASC']],
+        include: {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'id',
+            'name',
+            'street',
+            'number',
+            'address_details',
+            'state',
+            'city',
+            'zip_code',
+          ],
+        },
+
+        limit: 3,
+        offset: (page - 1) * 3,
       });
 
-      return res.json(deliveries);
+      return res.json({ deliveries, count });
     }
 
-    const deliveries = await Delivery.findAll({
+    const { count, rows: deliveries } = await Delivery.findAndCountAll({
       where: {
         deliveryman_id: id,
         end_date: null,
         canceled_at: null,
       },
-      limit: 10,
-      offset: (page - 1) * 10,
+      order: [['created_at', 'ASC']],
+      include: {
+        model: Recipient,
+        as: 'recipient',
+        attributes: [
+          'id',
+          'name',
+          'street',
+          'number',
+          'address_details',
+          'state',
+          'city',
+          'zip_code',
+        ],
+      },
+      limit: 3,
+      offset: (page - 1) * 3,
     });
 
-    return res.json({ deliveries, deliveryman: deliverymanExists });
+    return res.json({ deliveries, deliveryman: deliverymanExists, count });
   }
 
   async update(req, res) {
@@ -72,13 +106,13 @@ class StatusController {
       return res.status(400).json({ error: 'Deliveryman not found.' });
     }
 
+    const { start_date, end_date, signature_id } = req.body;
+
     const delivery = await Delivery.findByPk(deliveryId);
 
     if (!delivery) {
       return res.status(400).json({ error: 'Delivery not found.' });
     }
-
-    const { start_date, end_date, signature_id } = req.body;
 
     if (start_date) {
       const parsedStartHour = getHours(parseISO(start_date));
@@ -125,6 +159,12 @@ class StatusController {
         return res.status(400).json({
           error: 'Delivery time must be after the withdrawal time.',
         });
+      }
+
+      const signature = await File.findByPk(signature_id);
+
+      if (!signature) {
+        return res.status(400).json({ error: 'Signature not found.' });
       }
 
       const updatedDelivery = await delivery.update({
