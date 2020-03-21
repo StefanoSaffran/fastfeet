@@ -18,11 +18,8 @@ export default function DeliveryRoutes() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTransparent: true,
         headerTintColor: '#FFF',
-        headerLeftContainerStyle: {
-          marginLeft: 20,
-        },
+        headerLeftContainerStyle: {},
       }}
     >
       <Stack.Screen
@@ -34,16 +31,14 @@ export default function DeliveryRoutes() {
         name="Details"
         component={Details}
         options={{
-          title: 'Detalhes da encomenda',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={20} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerTitle: 'Detalhes da encomenda',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerTintColor: '#fff',
+          headerLeftContainerStyle: {
+            left: 10,
+          },
         }}
       />
       <Stack.Screen
@@ -51,15 +46,12 @@ export default function DeliveryRoutes() {
         component={NewProblem}
         options={{
           title: 'Informar problema',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={20} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerLeftContainerStyle: {
+            left: 10,
+          },
         }}
       />
       <Stack.Screen
@@ -67,15 +59,12 @@ export default function DeliveryRoutes() {
         component={Problems}
         options={{
           title: 'Visualizar problemas',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={20} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerLeftContainerStyle: {
+            left: 10,
+          },
         }}
       />
       <Stack.Screen
@@ -83,15 +72,12 @@ export default function DeliveryRoutes() {
         component={Confirm}
         options={{
           title: 'Confirmar agendamento',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={20} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerLeftContainerStyle: {
+            left: 10,
+          },
         }}
       />
     </Stack.Navigator>
