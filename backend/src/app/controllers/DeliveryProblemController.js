@@ -76,7 +76,7 @@ class DeliveryProblemController {
       where: {
         delivery_id: id,
       },
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'created_at'],
       include: [
         {
           model: Delivery,
@@ -92,17 +92,7 @@ class DeliveryProblemController {
   async delete(req, res) {
     const { id } = req.params;
 
-    const problemExists = await DeliveryProblem.findByPk(id);
-
-    if (!problemExists) {
-      return res
-        .status(400)
-        .json({ error: 'Delivery do not have any problem.' });
-    }
-
-    const { delivery_id } = problemExists;
-
-    const delivery = await Delivery.findByPk(delivery_id, {
+    const delivery = await Delivery.findByPk(id, {
       include: [
         {
           model: Deliveryman,
@@ -112,14 +102,24 @@ class DeliveryProblemController {
       ],
     });
 
+    if (!delivery) {
+      return res.status(400).json({ error: 'Delivery not found' });
+    }
+
     delivery.canceled_at = new Date();
 
     await delivery.save();
 
+    const problems = await DeliveryProblem.findAll({
+      where: {
+        delivery_id: id,
+      },
+    });
+
     if (process.env.NODE_ENV !== 'test') {
       await Queue.add(CancellationMail.key, {
         delivery,
-        problem: problemExists,
+        problem: problems,
       });
     }
 
