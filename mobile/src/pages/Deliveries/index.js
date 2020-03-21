@@ -46,16 +46,24 @@ export default function Deliveries() {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  /* const loadDeliveries = async () => {
+  const loadDeliveries = async () => {
     try {
       const { data } = await api.get(`deliveryman/${profile.id}/deliveries`, {
         params: { page, delivered },
       });
 
       setDeliveries(
-        page > 1 ? [...deliveries, data.deliveries] : data.deliveries
+        page > 1 ? [...deliveries, ...data.deliveries] : data.deliveries
       );
+      setTotalPages(Math.ceil(data.count / 10));
     } catch (err) {
+      showMessage({
+        message: 'Falha ao buscar encomendas',
+        description: err.response
+          ? err.response.data.error
+          : 'Erro de conexão com o servidor',
+        type: 'info',
+      });
     } finally {
       setRefreshing(false);
       setLoading(false);
@@ -66,19 +74,7 @@ export default function Deliveries() {
     if (isFocused) {
       loadDeliveries();
     }
-  }, [isFocused, delivered]); */
-
-  const items = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-  ];
+  }, [isFocused, delivered]); // eslint-disable-line
 
   const nameInitials = !profile.avatar
     ? profile.name.split(' ').map(n => n.charAt(0).toUpperCase())
@@ -131,11 +127,18 @@ export default function Deliveries() {
               </RightViewButton>
             </RightTitleContainer>
           </TitleContainer>
-          <DeliveryList
-            data={items}
-            keyExtractor={item => String(item.id)}
-            renderItem={() => <DeliveryCard />}
-          />
+          {loading && page === 1 ? (
+            <ActivityIndicator color="#ee4e62" size={30} />
+          ) : (
+            <DeliveryList
+              data={deliveries}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => <DeliveryCard delivery={item} />}
+            />
+          )}
+          {loading && page !== 1 && (
+            <ActivityIndicator color="#ee4e62" size={30} />
+          )}
         </Body>
       </Container>
     </Background>
