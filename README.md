@@ -102,9 +102,48 @@ Use this credentials to access the web application
 <blockquote><strong>email:</strong> admin@fastfeet.com</blockquote>
 <blockquote> <strong>senha:</strong> 123456</blockquote>
 
+### Mobile
+
+The Application was developed using Expo. It is a free and open source toolchain built around React Native to facilitate the process of running and testing applications. [Click here](https://expo.io/learn) to get start with Expo.
+
+```bash
+# install the dependencies
+cd mobile
+yarn
+```
+
+In order to run the application on your device, you need to change the ip config.
+
+[api.js](https://github.com/StefanoSaffran/fastfeet/blob/master/mobile/src/services/api.js)
+```javascript
+  baseURL: 'http://192.168.0.185:3333',
+```
+replace 192.168.0.185 with your machine's ip.
+
+If you want to use Reactotron change the ip in the Reactotron config file.
+
+[ReactotronConfig](https://github.com/StefanoSaffran/fastfeet/blob/master/mobile/src/config/ReactotronConfig.js)
+```javascript
+  .configure({ host: '192.168.0.185' })
+```
+
+Now with everything on place, run the application.
+
+```bash
+
+# to run the app
+yarn start
+
+```
+Expo will open a page in your browser, scan the QRcode on the page and wait for the app to load.
+
+> The Application was developed and tested on Iphone 6s
+
+---
+
 ## :page_facing_up: License
 
-This project is under the MIT license. See the [LICENSE](https://github.com/StefanoSaffran/gympoint/blob/master/LICENSE) for more information
+This project is under the MIT license. See the [LICENSE](https://github.com/StefanoSaffran/fastfeet/blob/master/LICENSE) for more information
 
 
 ## :mailbox_with_mail: Get in touch!

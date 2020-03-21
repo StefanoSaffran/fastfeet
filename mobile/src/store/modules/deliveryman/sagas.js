@@ -13,7 +13,7 @@ export function* signIn({ payload }) {
       return;
     }
     const { data } = yield call(api.get, `deliveryman/${id}/deliveries`);
-    console.tron.log(data);
+
     yield put(signInSuccess(data.deliveryman));
   } catch (err) {
     yield put(signFailure());

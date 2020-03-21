@@ -1,12 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
-// import { Container } from './styles';
+import Background from '~/components/Background';
+import DetailsCard from './DetailsCard';
+import StatusCard from './StatusCard';
+import ActionsCard from './ActionsCard';
 
-export default function Details() {
+import { Container, HeaderBackground } from './styles';
+
+export default function Details({ route }) {
+  const { delivery } = route.params;
   return (
-    <View>
-      <Text>Detalhes</Text>
-    </View>
+    <Background>
+      <Container>
+        <HeaderBackground />
+        <DetailsCard
+          recipient={delivery.recipient}
+          product={delivery.product}
+        />
+        <StatusCard delivery={delivery} />
+        <ActionsCard delivery={delivery} />
+      </Container>
+    </Background>
   );
 }
