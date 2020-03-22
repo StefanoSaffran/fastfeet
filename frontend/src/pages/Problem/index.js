@@ -4,21 +4,27 @@ import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 
 import Loading from '~/components/Loading';
+import Pagination from '~/components/Pagination';
 import Table from '~/components/Table';
+
 import api from '~/services/api';
 
-import { Container } from './styles';
+import { Container, Body } from './styles';
 
 export default function Problem() {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const loadProblems = async () => {
     try {
       const { data } = await api.get('delivery/problems', {
         params: { page },
       });
+
+      setTotalPages(Math.ceil(data.count / 7));
+
       setProblems(data);
     } catch (err) {
       toast.error(
@@ -76,15 +82,22 @@ export default function Problem() {
         <>
           <h2>Problemas na entrega</h2>
           {!problems.length ? (
-            <p>Nenhum problema encontrado...</p>
+            <p>Nenhuma encomenda com problemas no momento...</p>
           ) : (
-            <>
+            <Body>
               <Table
                 data={problems}
                 column="problems"
                 handleCancel={handleCancel}
               />
-            </>
+              {totalPages > 1 && (
+                <Pagination
+                  page={page}
+                  totalPages={totalPages}
+                  setPage={setPage}
+                />
+              )}
+            </Body>
           )}
         </>
       )}

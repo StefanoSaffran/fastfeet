@@ -5,23 +5,28 @@ import { toast } from 'react-toastify';
 import { MdAdd, MdSearch } from 'react-icons/md';
 
 import Loading from '~/components/Loading';
+import Pagination from '~/components/Pagination';
 import Table from '~/components/Table';
 import history from '~/services/history';
+
 import api from '~/services/api';
 
-import { Container, InputWrapper } from './styles';
+import { Container, InputWrapper, Body } from './styles';
 
 export default function Deliveryman() {
   const [deliverymen, setDeliverymen] = useState([]);
   const [filter, setFilter] = useState('');
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const loadDeliverymen = async () => {
     try {
       const { data } = await api.get('deliveryman', {
         params: { page, q: filter },
       });
+
+      setTotalPages(Math.ceil(data.count / 7));
 
       setDeliverymen(data.deliverymen);
     } catch (err) {
@@ -104,13 +109,20 @@ export default function Deliveryman() {
           {!deliverymen.length ? (
             <p>Nenhum entregador encontrado...</p>
           ) : (
-            <>
+            <Body>
               <Table
                 data={deliverymen}
                 column="deliverymen"
                 handleDelete={handleDelete}
               />
-            </>
+              {totalPages > 1 && (
+                <Pagination
+                  page={page}
+                  totalPages={totalPages}
+                  setPage={setPage}
+                />
+              )}
+            </Body>
           )}
         </>
       )}
