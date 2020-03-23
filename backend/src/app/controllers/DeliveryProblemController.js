@@ -1,4 +1,5 @@
 import { object, string } from 'yup';
+import { Op } from 'sequelize';
 
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
@@ -42,10 +43,10 @@ class DeliveryProblemController {
     const { page = 1 } = req.query;
 
     const problems = await DeliveryProblem.findAll({
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'delivery_id'],
       order: ['delivery_id'],
-      limit: 10,
-      offset: (page - 1) * 10,
+      limit: 7,
+      offset: (page - 1) * 7,
       include: [
         {
           model: Delivery,
@@ -57,16 +58,14 @@ class DeliveryProblemController {
             'recipient_id',
             'canceled_at',
           ],
+          where: {
+            canceled_at: null,
+          },
         },
       ],
     });
-    problems.map(p => console.log(p.delivery));
 
-    const notCanceledDelivery = problems.filter(
-      p => p.delivery.canceled_at === null
-    );
-
-    return res.json(notCanceledDelivery);
+    return res.json(problems);
   }
 
   async show(req, res) {
