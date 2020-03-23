@@ -55,7 +55,7 @@ export default function Deliveries() {
       setDeliveries(
         page > 1 ? [...deliveries, ...data.deliveries] : data.deliveries
       );
-      setTotalPages(Math.ceil(data.count / 10));
+      setTotalPages(Math.ceil(data.count / 3));
     } catch (err) {
       showMessage({
         message: 'Falha ao buscar encomendas',
@@ -70,11 +70,36 @@ export default function Deliveries() {
     }
   };
 
+  const loadMore = () => {
+    if (page >= totalPages || loading) return;
+
+    setPage(page + 1);
+  };
+
+  const refreshList = () => {
+    setRefreshing(true);
+    setDeliveries([]);
+
+    if (page === 1) {
+      loadDeliveries();
+      return;
+    }
+    setPage(1);
+  };
+
+  useEffect(() => {
+    if (page === 1) {
+      loadDeliveries();
+      return;
+    }
+    setPage(1);
+  }, [delivered]); // eslint-disable-line
+
   useEffect(() => {
     if (isFocused) {
       loadDeliveries();
     }
-  }, [isFocused, delivered]); // eslint-disable-line
+  }, [isFocused, page]); // eslint-disable-line
 
   const nameInitials = !profile.avatar
     ? profile.name.split(' ').map(n => n.charAt(0).toUpperCase())
@@ -134,6 +159,10 @@ export default function Deliveries() {
               data={deliveries}
               keyExtractor={item => String(item.id)}
               renderItem={({ item }) => <DeliveryCard delivery={item} />}
+              refreshing={refreshing}
+              onRefresh={refreshList}
+              onEndReachedThreshold={0.3}
+              onEndReached={loadMore}
             />
           )}
           {loading && page !== 1 && (
