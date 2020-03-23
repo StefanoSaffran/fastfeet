@@ -39,7 +39,7 @@ export default {
   dest: resolve(__dirname, '..', '..', 'tmp', 'uploads'),
   storage: storageTypes[process.env.STORAGE_TYPE],
   limits: {
-    fileSize: 2 * 1024 * 1024,
+    fileSize: 2 * 1536 * 1536,
   },
   fileFilter: (req, file, cb) => {
     const allowedMimes = [

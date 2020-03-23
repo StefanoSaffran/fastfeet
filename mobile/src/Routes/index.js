@@ -40,7 +40,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (
-            <Icon name="reorder" size={32} color={color} />
+            <Icon name="reorder" size={28} color={color} />
           ),
         }}
       />
@@ -50,7 +50,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Meu Perfil',
           tabBarIcon: ({ color }) => (
-            <Icon name="account-circle" size={32} color={color} />
+            <Icon name="account-circle" size={28} color={color} />
           ),
         }}
       />

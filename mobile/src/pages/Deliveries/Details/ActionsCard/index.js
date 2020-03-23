@@ -25,8 +25,10 @@ export default function ActionsCard({ delivery }) {
   const handleConfirm = async () => {
     if (delivery.end_date) return;
 
-    if (delivery.start_date)
+    if (delivery.start_date) {
       navigation.navigate('Confirm', { id: delivery.id });
+      return;
+    }
 
     try {
       await api.put(`deliveryman/${profile.id}/deliveries/${delivery.id}`, {

@@ -25,6 +25,8 @@ routes.put('/deliveryman/:id/deliveries/:deliveryId', StatusController.update);
 routes.post('/delivery/:id/problems', DeliveryProblemsCtrller.store);
 routes.get('/delivery/:id/problems', DeliveryProblemsCtrller.show);
 
+routes.post('/files', upload.single('file'), FileController.store);
+
 /**
  * Authentication middleware, all routes that
  * need authenticated user comes after this
@@ -39,8 +41,6 @@ routes.get('/recipients', RecipientController.index);
 routes.get('/recipients/:id', RecipientController.show);
 routes.put('/recipients/:id', RecipientController.update);
 routes.delete('/recipients/:id', RecipientController.delete);
-
-routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/deliveryman', DeliverymanController.store);
 routes.get('/deliveryman', DeliverymanController.index);
