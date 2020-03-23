@@ -31,9 +31,9 @@
 </p>
 
 <p align="center">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" height="320" >
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584917050/fastfeet/qhfnezcjk68kjfmhfcll.gif" height="320">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949827/fastfeet/vkuijpcgxvkhjuz6jmvu.gif" height="230">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" height="400">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584917050/fastfeet/qhfnezcjk68kjfmhfcll.gif" height="400">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949827/fastfeet/vkuijpcgxvkhjuz6jmvu.gif" height="400">
 </p>
 
 ## :rocket: Built with
