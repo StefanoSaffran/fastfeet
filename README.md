@@ -7,7 +7,7 @@
 </h1>
 
 <h4 align="center">
-  Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS that will serve as a mediator between the frontend and the database, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
+  Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
 </h4>
 
 <p align="center">
@@ -22,6 +22,18 @@
   <a href="#information_source-how-to-run">How to run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#page_facing_up-license">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#mailbox_with_mail-get-in-touch">Get in touch</a>
+</p>
+
+<p align="center">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/jkjmqdvzo3ftm0exr8hs.gif" height="320">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952630/fastfeet/kifhfhkis7hfk7gh9t2n.gif" height="320">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/qk966idl6gdby6ow7b40.gif" height="320">
+</p>
+
+<p align="center">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" height="320" >
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584917050/fastfeet/qhfnezcjk68kjfmhfcll.gif" height="320">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949827/fastfeet/vkuijpcgxvkhjuz6jmvu.gif" height="230">
 </p>
 
 ## :rocket: Built with

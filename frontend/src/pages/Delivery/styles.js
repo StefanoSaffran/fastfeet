@@ -16,7 +16,7 @@ export const InputWrapper = styled.div`
 export const Container = styled.div`
   width: 100%;
   max-width: 1230px;
-  min-width: 550px;
+  min-width: 375px;
   margin: 30px auto;
   padding: 0 30px;
 
@@ -26,6 +26,7 @@ export const Container = styled.div`
     font-weight: normal;
     font-size: 24px;
     line-height: 28px;
+    text-align: center;
   }
 
   div.header {
@@ -67,6 +68,10 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
+    h2 {
+      text-align: start;
+    }
+
     div.header {
       flex-direction: row;
       justify-content: space-between;
