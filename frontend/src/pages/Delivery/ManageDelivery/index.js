@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Form } from '@unform/web';
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md';
 import debounce from 'debounce-promise';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
 import ReactSelect from '~/components/ReactSelect';
 import Loading from '~/components/Loading';
@@ -94,35 +94,48 @@ export default function ManageDelivery() {
     leading: true,
   });
 
-  const handleStore = async data => {
-    setLoading(true);
+  const handleSubmit = async data => {
+    formRef.current.setErrors({});
+
     try {
-      const res = await api.post('delivery', { ...data });
+      const schema = Yup.object().shape({
+        recipient_id: Yup.string().required('O Destinatário é obrigatório'),
+        deliveryman_id: Yup.string().required('O entregador é obrigatório'),
+        product: Yup.string().required('O produto é obrigatório'),
+      });
 
-      toast.success('Encomenda cadastrada com sucesso');
-      history.push(`/deliveries/${res.data.id}`);
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      setLoading(true);
+
+      if (id) {
+        await api.put(`delivery/${id}`, { ...data });
+
+        toast.success('Encomenda atualizada com sucesso');
+        history.push(`/deliveries`);
+      } else {
+        const res = await api.post('delivery', { ...data });
+
+        toast.success('Encomenda cadastrada com sucesso');
+        history.push(`/deliveries/${res.data.id}`);
+      }
     } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      const validationErrors = {};
 
-  const handleUpdate = async data => {
-    setLoading(true);
-    try {
-      await api.put(`delivery/${id}`, { ...data });
-
-      toast.success('Encomenda atualizada com sucesso');
-      history.push(`/deliveries`);
-    } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+        formRef.current.setErrors(validationErrors);
+      }
+      if (err.response) {
+        toast.error(
+          (err.response && err.response.data.error) ||
+            'Erro de comunicação com o servidor'
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -146,6 +159,7 @@ export default function ManageDelivery() {
       height: '45px',
       fontWeight: 'normal',
       marginTop: '11px',
+      marginBottom: '11px',
     }),
     placeholder: styles => ({
       ...styles,
@@ -175,11 +189,7 @@ export default function ManageDelivery() {
               </button>
             </div>
           </Header>
-          <Form
-            ref={formRef}
-            onSubmit={id ? handleUpdate : handleStore}
-            id="form-deliveries"
-          >
+          <Form ref={formRef} onSubmit={handleSubmit} id="form-deliveries">
             <div className="select-container">
               <ReactSelect
                 name="recipient_id"

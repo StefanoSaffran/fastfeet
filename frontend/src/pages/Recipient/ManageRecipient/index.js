@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Form } from '@unform/web';
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md';
+import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -34,6 +35,56 @@ export default function ManageRecipient() {
       loadRecipient();
     }
     }, [id]); //eslint-disable-line
+
+  const handleSubmit = async data => {
+    formRef.current.setErrors({});
+
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('O nome é obrigatório'),
+        street: Yup.string().required('A rua é obrigatória'),
+        number: Yup.string().required('O número é obrigatório'),
+        city: Yup.string().required('A cidade é obrigatória'),
+        state: Yup.string().required('O estado é obrigatório'),
+        zip_code: Yup.string().required('O CEP é obrigatório'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      setLoading(true);
+
+      if (id) {
+        await api.put(`recipients/${id}`, { ...data });
+
+        toast.success('Destinatário atualizado com sucesso');
+        history.push(`/recipients`);
+      } else {
+        const res = await api.post('recipients', { ...data });
+
+        toast.success('Destinatário cadastrado com sucesso');
+        history.push(`/recipients/${res.data.id}`);
+      }
+    } catch (err) {
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+        formRef.current.setErrors(validationErrors);
+      }
+      if (err.response) {
+        toast.error(
+          (err.response && err.response.data.error) ||
+            'Erro de comunicação com o servidor'
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleStore = async data => {
     setLoading(true);
@@ -90,11 +141,7 @@ export default function ManageRecipient() {
               </button>
             </div>
           </Header>
-          <Form
-            ref={formRef}
-            onSubmit={id ? handleUpdate : handleStore}
-            id="form-recipient"
-          >
+          <Form ref={formRef} onSubmit={handleSubmit} id="form-recipient">
             <Input name="name" label="Nome" placeholder="Nome completo" />
             <div className="address-second-line">
               <Input name="street" label="Rua" placeholder="Rua Beethoven" />

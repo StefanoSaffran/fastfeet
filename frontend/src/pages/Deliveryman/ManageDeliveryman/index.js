@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Form } from '@unform/web';
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md';
+import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -48,53 +49,62 @@ export default function ManageDeliveryman() {
     return res.data;
   };
 
-  const handleStore = async data => {
-    setLoading(true);
+  const handleSubmit = async data => {
+    formRef.current.setErrors({});
+
     try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('O nome é obrigatório'),
+        email: Yup.string().required('O email é obrigatório'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
       let avatar = null;
       if (data.avatar) {
         avatar = await handleAvatar(data.avatar);
       }
-      const res = await api.post('deliveryman', {
-        name: data?.name,
-        email: data?.email,
-        avatar_id: avatar?.id ?? undefined,
-      });
 
-      toast.success('Entregador cadastrado com sucesso');
-      history.push(`/deliveryman/${res.data.id}`);
-    } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      setLoading(true);
 
-  const handleUpdate = async data => {
-    setLoading(true);
-    try {
-      let avatar = null;
-      if (data.avatar) {
-        avatar = await handleAvatar(data.avatar);
+      if (id) {
+        await api.put(`deliveryman/${id}`, {
+          name: data?.name,
+          email: data?.email,
+          avatar_id: avatar?.id ?? undefined,
+        });
+
+        toast.success('Entregador atualizado com sucesso');
+        history.push(`/deliveryman`);
+      } else {
+        const res = await api.post('deliveryman', {
+          name: data?.name,
+          email: data?.email,
+          avatar_id: avatar?.id ?? undefined,
+        });
+
+        toast.success('Entregador cadastrado com sucesso');
+        history.push(`/deliveryman/${res.data.id}`);
       }
-      await api.put(`deliveryman/${id}`, {
-        name: data?.name,
-        email: data?.email,
-        avatar_id: avatar?.id ?? undefined,
-      });
-
-      toast.success('Entregador atualizado com sucesso');
     } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+        formRef.current.setErrors(validationErrors);
+      }
+      if (err.response) {
+        toast.error(
+          (err.response && err.response.data.error) ||
+            'Erro de comunicação com o servidor'
+        );
+      }
     } finally {
       setLoading(false);
-      history.push(`/deliveryman`);
     }
   };
 
@@ -122,11 +132,7 @@ export default function ManageDeliveryman() {
               </button>
             </div>
           </Header>
-          <Form
-            ref={formRef}
-            onSubmit={id ? handleUpdate : handleStore}
-            id="form-deliveryman"
-          >
+          <Form ref={formRef} onSubmit={handleSubmit} id="form-deliveryman">
             <AvatarInput name="avatar" />
             <Input name="name" label="Nome" placeholder="Nome completo" />
             <Input

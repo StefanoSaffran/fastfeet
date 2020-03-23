@@ -38,6 +38,10 @@ export const Container = styled.div`
     margin-top: 15px;
   }
 
+  input#product {
+    margin-bottom: 11px;
+  }
+
   span.error {
     margin-bottom: 15px;
     align-self: flex-start;
