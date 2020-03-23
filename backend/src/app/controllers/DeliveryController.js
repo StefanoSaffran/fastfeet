@@ -69,8 +69,8 @@ class DeliveryController {
           },
         },
         order: ['id'],
-        limit: 10,
-        offset: (page - 1) * 10,
+        limit: 7,
+        offset: (page - 1) * 7,
         include: [
           {
             model: Deliveryman,
