@@ -23,16 +23,15 @@
   <a href="#page_facing_up-license">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#mailbox_with_mail-get-in-touch">Get in touch</a>
 </p>
-
+<br><br>
 <p align="center">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/jkjmqdvzo3ftm0exr8hs.gif" height="320">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1585036656/fastfeet/itci3xn6yeeiq6bvvqxu.gif" height="320">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952630/fastfeet/kifhfhkis7hfk7gh9t2n.gif" height="320">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/qk966idl6gdby6ow7b40.gif" height="320">
 </p>
 
 <p align="center">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" height="400">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584917050/fastfeet/qhfnezcjk68kjfmhfcll.gif" height="400">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949827/fastfeet/vkuijpcgxvkhjuz6jmvu.gif" height="400">
 </p>
 
