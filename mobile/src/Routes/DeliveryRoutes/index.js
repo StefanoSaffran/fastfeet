@@ -19,7 +19,7 @@ export default function DeliveryRoutes() {
     <Stack.Navigator
       screenOptions={{
         headerTintColor: '#FFF',
-        headerLeftContainerStyle: {},
+        headerTitleAlign: 'center',
       }}
     >
       <Stack.Screen

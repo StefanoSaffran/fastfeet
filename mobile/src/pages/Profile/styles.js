@@ -25,7 +25,17 @@ export const Avatar = styled.Image`
   margin: 60px 0 40px;
 `;
 
-export const AvatarText = styled.Text``;
+export const AvatarText = styled.Text`
+  width: 136px;
+  height: 136px;
+  border-radius: 68px;
+  margin: 60px 0 40px;
+  color: #a28fd0;
+  background: #a28fd044;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 60px;
+`;
 
 export const Label = styled.Text`
   font-size: 12px;

@@ -256,7 +256,7 @@ class DeliveryController {
 
       File.destroy({
         where: {
-          id: delivery.avatar.id,
+          id: delivery.signature.id,
         },
       });
     }

@@ -10,6 +10,8 @@ class CancellationMail {
   async handle({ data }) {
     const { delivery, problem } = data;
 
+    const descriptions = problem.map(p => `${p.description}, `);
+
     await Mail.sendMail({
       to: `${delivery.deliveryman.name} <${delivery.deliveryman.email}>`,
       subject: 'Encomenda cancelada',
@@ -23,7 +25,7 @@ class CancellationMail {
             locale: ptBR,
           }
         ),
-        problem: problem.description,
+        problem: descriptions,
       },
     });
   }

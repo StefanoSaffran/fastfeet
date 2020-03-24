@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
 export const Container = styled.View`
-  padding: 78px 18px 20px;
+  padding: ${Platform.OS === 'ios' ? '78px 20px 20px' : '88px 20px 20px'};
   position: relative;
 `;
 

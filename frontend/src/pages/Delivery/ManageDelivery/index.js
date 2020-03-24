@@ -64,8 +64,6 @@ export default function ManageDelivery() {
   };
 
   useEffect(() => {
-    setLoading(false);
-
     loadRecipients();
     loadDeliverymen();
     if (id) {

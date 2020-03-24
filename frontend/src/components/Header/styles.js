@@ -4,12 +4,12 @@ import { darken } from 'polished';
 export const Container = styled.div`
   background: #fff;
   padding: 0 30px;
-  min-width: 550px;
+  min-width: 375px;
 `;
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 1440px;
+  max-width: 1540px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -50,6 +50,15 @@ export const Content = styled.div`
         margin-left: 56px;
         padding-left: 30px;
         border-left: 1px solid #ddd;
+      }
+    }
+  }
+
+  @media (max-width: 869px) {
+    nav {
+      a {
+        font-size: 12px;
+        margin-right: 14px;
       }
     }
   }

@@ -18,7 +18,14 @@ export const Left = styled.View`
   align-items: center;
 `;
 
-export const AvatarContainer = styled.View``;
+export const AvatarContainer = styled.View`
+  width: 68px;
+  height: 68px;
+  border-radius: 34px;
+  align-items: center;
+  justify-content: center;
+  background: #a28fd044;
+`;
 
 export const NameContainer = styled.View`
   margin-left: 12px;
@@ -43,7 +50,10 @@ export const Avatar = styled.Image`
   border-radius: 34px;
 `;
 
-export const AvatarText = styled.Text``;
+export const AvatarText = styled.Text`
+  color: #a28fd0;
+  font-size: 30px;
+`;
 
 export const LogoutButton = styled(TouchableOpacity)`
   margin-right: 12px;
