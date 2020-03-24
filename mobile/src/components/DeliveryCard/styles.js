@@ -6,6 +6,7 @@ export const Container = styled.View`
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 0 3px #0000001a;
+  elevation: 4;
   margin: 10px auto 25px;
 `;
 

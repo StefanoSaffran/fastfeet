@@ -52,10 +52,11 @@ export default function NewProblem({ route }) {
           placeholder="Inclua aqui o problema que ocorreu na entrega."
           autoCorrect={false}
           multiline
-          numberOfLines={9}
+          numberOfLines={8}
           returnKeyType="send"
           value={problem}
           onChangeText={setProblem}
+          onSubmitEditing={handleSubmit}
         />
         <SubmitButton onPress={handleSubmit}>Enviar</SubmitButton>
       </Container>

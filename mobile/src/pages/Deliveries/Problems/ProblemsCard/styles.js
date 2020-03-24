@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   background: #fff;
   box-shadow: 0 0 3px #0000001a;
+  elevation: 3;
   border-radius: 4px;
   height: 56px;
   flex-direction: row;
