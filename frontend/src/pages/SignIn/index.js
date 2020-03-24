@@ -17,7 +17,6 @@ export default function SignIn() {
 
   const handleSubmit = async data => {
     try {
-      // Remove all previous errors
       formRef.current.setErrors({});
 
       const schema = Yup.object().shape({
