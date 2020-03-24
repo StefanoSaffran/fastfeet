@@ -42,7 +42,8 @@ export const Container = styled.div`
         padding-right: 15px;
       }
 
-      div#unformInput:last-child {
+      div#zipCodeInput {
+        width: 33%;
         padding-right: 0;
       }
     }

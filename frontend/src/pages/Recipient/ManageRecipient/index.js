@@ -10,6 +10,7 @@ import history from '~/services/history';
 import api from '~/services/api';
 import Loading from '~/components/Loading';
 import Input from '~/components/Unform/Input';
+import ZipCodeInput from '~/components/Unform/ZipCodeInput';
 
 import { Container, Header } from './styles';
 
@@ -46,7 +47,9 @@ export default function ManageRecipient() {
         number: Yup.string().required('O número é obrigatório'),
         city: Yup.string().required('A cidade é obrigatória'),
         state: Yup.string().required('O estado é obrigatório'),
-        zip_code: Yup.string().required('O CEP é obrigatório'),
+        zip_code: Yup.string()
+          .matches(/\d{5}-\d{3}/, 'CEP inválido')
+          .required('O CEP é obrigatório'),
       });
 
       await schema.validate(data, {
@@ -81,40 +84,6 @@ export default function ManageRecipient() {
             'Erro de comunicação com o servidor'
         );
       }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleStore = async data => {
-    setLoading(true);
-    try {
-      const res = await api.post('recipients', { ...data });
-
-      toast.success('Destinatário cadastrado com sucesso');
-      history.push(`/recipients/${res.data.id}`);
-    } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdate = async data => {
-    setLoading(true);
-    try {
-      await api.put(`recipients/${id}`, { ...data });
-
-      toast.success('Destinatário atualizado com sucesso');
-      history.push(`/recipients`);
-    } catch (err) {
-      toast.error(
-        (err.response && err.response.data.error) ||
-          'Erro de comunicação com o servidor'
-      );
     } finally {
       setLoading(false);
     }
@@ -156,7 +125,12 @@ export default function ManageRecipient() {
             <div className="address-third-line">
               <Input name="city" label="Cidade" placeholder="Diadema" />
               <Input name="state" label="Estado" placeholder="SP" />
-              <Input name="zip_code" label="CEP" placeholder="09960-580" />
+              <ZipCodeInput
+                name="zip_code"
+                label="CEP"
+                placeholder="09960-580"
+                mask="99999-999"
+              />
             </div>
           </Form>
         </>
