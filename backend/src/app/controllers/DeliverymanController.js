@@ -3,7 +3,6 @@ import { promisify } from 'util';
 import fs from 'fs';
 import { Op } from 'sequelize';
 
-import { object, string, number } from 'yup';
 import aws from 'aws-sdk';
 
 import Deliveryman from '../models/Deliveryman';
@@ -13,24 +12,12 @@ const s3 = new aws.S3();
 
 class DeliverymanController {
   async store(req, res) {
-    const schema = object().shape({
-      name: string().required(),
-      email: string()
-        .email()
-        .required(),
-      avatar_id: number(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'validation fails' });
-    }
-
     const { avatar_id, email } = req.body;
 
     const deliverymanExists = await Deliveryman.findOne({ where: { email } });
 
     if (deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman already exists.' });
+      return res.status(401).json({ error: 'Deliveryman already exists.' });
     }
 
     if (avatar_id) {
@@ -114,16 +101,6 @@ class DeliverymanController {
   }
 
   async update(req, res) {
-    const schema = object().shape({
-      name: string(),
-      email: string().email(),
-      avatar_id: number(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
-
     const { email, avatar_id } = req.body;
 
     const { id } = req.params;
@@ -139,7 +116,7 @@ class DeliverymanController {
     });
 
     if (!deliveryman) {
-      return res.status(400).json({ error: 'deliveryman does not found.' });
+      return res.status(401).json({ error: 'Deliveryman not found.' });
     }
 
     if (email !== deliveryman.email) {
@@ -156,7 +133,7 @@ class DeliverymanController {
 
       if (userExists) {
         return res
-          .status(400)
+          .status(401)
           .json({ error: 'Email belongs to another deliveryman' });
       }
     }
@@ -215,7 +192,7 @@ class DeliverymanController {
     });
 
     if (!deliveryman) {
-      return res.status(400).json({ error: 'Deliveryman not found.' });
+      return res.status(401).json({ error: 'Deliveryman not found.' });
     }
 
     if (deliveryman && deliveryman.avatar) {

@@ -1,26 +1,9 @@
-import { object, string, number } from 'yup';
 import { Op } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
 class RecipientController {
   async store(req, res) {
-    const schema = object().shape({
-      name: string().required(),
-      number: number()
-        .required()
-        .integer(),
-      street: string().required(),
-      address_details: string(),
-      state: string().required(),
-      city: string().required(),
-      zip_code: string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'validation fails' });
-    }
-
     const { name, street, zip_code } = req.body;
 
     const recipientExists = await Recipient.findOne({
@@ -28,7 +11,7 @@ class RecipientController {
     });
 
     if (recipientExists)
-      return res.status(400).json({ error: 'Recipient already exists.' });
+      return res.status(401).json({ error: 'Recipient already exists.' });
 
     const {
       id,
@@ -99,22 +82,6 @@ class RecipientController {
     const { id } = req.params;
     const { name } = req.body;
 
-    const schema = object().shape({
-      name: string().required(),
-      number: number()
-        .required()
-        .integer(),
-      street: string().required(),
-      address_details: string(),
-      state: string().required(),
-      city: string().required(),
-      zip_code: string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'validation fails' });
-    }
-
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
@@ -147,7 +114,7 @@ class RecipientController {
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
-      return res.status(400).json({ error: 'Recipient not found.' });
+      return res.status(401).json({ error: 'Recipient not found.' });
     }
 
     await recipient.destroy();
