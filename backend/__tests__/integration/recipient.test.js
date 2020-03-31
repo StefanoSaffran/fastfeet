@@ -20,6 +20,16 @@ describe('Recipient', () => {
     expect(status).toBe(200);
   });
 
+  it('should be able to find recipient by ID', async () => {
+    const { body } = await getToken();
+
+    const { status } = await request(app)
+      .get(`/recipients/${1}`)
+      .set('Authorization', `bearer ${body.token}`);
+
+    expect(status).toBe(200);
+  });
+
   it('should be able to register a new recipient', async () => {
     const recipient = await factory.attrs('Recipient');
 
@@ -33,9 +43,9 @@ describe('Recipient', () => {
     expect(status).toBe(200);
   });
 
-  it('should not be able to register a new student when some field is missing', async () => {
+  it('should not be able to register a new recipient when some field is missing', async () => {
     const recipient = {
-      name: 'Student test',
+      name: 'Recipient test',
       number: 25,
       city: 'São Paulo',
       address_details: 'Ap. 101',
@@ -67,7 +77,7 @@ describe('Recipient', () => {
       .send(recipient)
       .set('Authorization', `Bearer ${body.token}`);
 
-    expect(status).toBe(400);
+    expect(status).toBe(401);
   });
 
   it('should be able to update recipient', async () => {
@@ -108,7 +118,7 @@ describe('Recipient', () => {
 
     const updatedRecipient = await request(app)
       .put(`/recipients/${recipientID.id}`)
-      .send({})
+      .send({ number: 'fake' })
       .set('Authorization', `Bearer ${body.token}`);
 
     expect(updatedRecipient.status).toBe(400);
@@ -156,6 +166,6 @@ describe('Recipient', () => {
       .delete('/recipients/0')
       .set('Authorization', `Bearer ${body.token}`);
 
-    expect(status).toBe(400);
+    expect(status).toBe(401);
   });
 });
