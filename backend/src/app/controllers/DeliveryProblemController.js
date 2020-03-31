@@ -10,20 +10,12 @@ import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
   async store(req, res) {
-    const schema = object().shape({
-      description: string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails.' });
-    }
-
     const { id } = req.params;
 
     const deliveryExists = await Delivery.findByPk(id);
 
     if (!deliveryExists) {
-      return res.status(400).json({ error: 'Delivery not found.' });
+      return res.status(401).json({ error: 'Delivery not found.' });
     }
 
     const { description } = req.body;
@@ -102,7 +94,7 @@ class DeliveryProblemController {
     });
 
     if (!delivery) {
-      return res.status(400).json({ error: 'Delivery not found' });
+      return res.status(401).json({ error: 'Delivery not found' });
     }
 
     delivery.canceled_at = new Date();

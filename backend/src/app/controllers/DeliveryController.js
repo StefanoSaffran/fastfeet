@@ -2,7 +2,6 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 import fs from 'fs';
 
-import { object, string, number } from 'yup';
 import aws from 'aws-sdk';
 import { Op } from 'sequelize';
 
@@ -18,16 +17,6 @@ const s3 = new aws.S3();
 
 class DeliveryController {
   async store(req, res) {
-    const schema = object(req.body).shape({
-      recipient_id: number().required(),
-      deliveryman_id: number().required(),
-      product: string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
-
     const { deliveryman_id, recipient_id } = req.body;
 
     const deliverymanExists = await Deliveryman.findOne({
@@ -35,7 +24,7 @@ class DeliveryController {
     });
 
     if (!deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman not found.' });
+      return res.status(401).json({ error: 'Deliveryman not found.' });
     }
 
     const recipientExists = await Recipient.findOne({
@@ -43,7 +32,7 @@ class DeliveryController {
     });
 
     if (!recipientExists) {
-      return res.status(400).json({ error: 'Recipient not found.' });
+      return res.status(401).json({ error: 'Recipient not found.' });
     }
 
     const delivery = await Delivery.create(req.body);
@@ -166,22 +155,12 @@ class DeliveryController {
   }
 
   async update(req, res) {
-    const schema = object(req.body).shape({
-      recipient_id: number(),
-      deliveryman_id: number(),
-      product: string(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
-
     const { id } = req.params;
 
     const delivery = await Delivery.findByPk(id);
 
     if (!delivery) {
-      return res.status(400).json({ error: 'Delivery not found.' });
+      return res.status(401).json({ error: 'Delivery not found.' });
     }
 
     const { deliveryman_id, recipient_id } = req.body;
@@ -192,7 +171,7 @@ class DeliveryController {
       });
 
       if (!deliverymanExists) {
-        return res.status(400).json({ error: 'Deliveryman not found.' });
+        return res.status(401).json({ error: 'Deliveryman not found.' });
       }
     }
 
@@ -202,7 +181,7 @@ class DeliveryController {
       });
 
       if (!recipientExists) {
-        return res.status(400).json({ error: 'Recipient not found.' });
+        return res.status(401).json({ error: 'Recipient not found.' });
       }
     }
 
@@ -225,7 +204,7 @@ class DeliveryController {
     });
 
     if (!delivery) {
-      return res.status(400).json({ error: 'Delivery not found.' });
+      return res.status(401).json({ error: 'Delivery not found.' });
     }
 
     if (delivery.signature) {
