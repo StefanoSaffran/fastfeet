@@ -6,24 +6,26 @@
    FastFeet Fullstack app
 </h1>
 
-<h4 align="center">
-  Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
-</h4>
-
 <p align="center">
 <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/StefanoSaffran/fastfeet?color=7D40E7">
 <img alt="Made by Stefano" src="https://img.shields.io/badge/made%20by-StefanoSaffran-%20?color=7D40E7">
 <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/fastfeet?color=7D40E7">
+<img alt="Repository size" src="https://img.shields.io/github/repo-size/StefanoSaffran/fastfeet?color=e02041">
 <img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/fastfeet?color=7D40E7">
 </p> 
 
 <p align="center">
-  <a href="#rocket-built-with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-how-to-run">How to run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#page_facing_up-license">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#mailbox_with_mail-get-in-touch">Get in touch</a>
+  <a href="#computer-project">💻 Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-built-with">🚀 Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-getting-started">ℹ️ Getting Started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#page_with_curl-license">📃 License</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#mailbox_with_mail-get-in-touch">📬 Get in touch</a>
 </p>
 <br><br>
+## :computer: Project 
+<h4 align="center">
+   Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
+</h4>
 <p align="center">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1585036656/fastfeet/itci3xn6yeeiq6bvvqxu.gif" height="320">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952630/fastfeet/kifhfhkis7hfk7gh9t2n.gif" height="320">
@@ -38,29 +40,42 @@
 
 This project was developed with the following technologies:
 
--  [Node.js](https://nodejs.org/)
--  [Express](https://expressjs.com/)
--  [React Native](https://facebook.github.io/react-native/)
--  [Redux](https://redux.js.org/)
--  [Redux-Saga](https://redux-saga.js.org/)
--  [Redux-persist](https://github.com/rt2zz/redux-persist)
--  [Styled-components](https://www.styled-components.com/)
--  [React Navigation](https://reactnavigation.org/)
--  [JWT](https://jwt.io/)
--  [Immer](https://github.com/immerjs/immer)
--  [Yup](https://www.npmjs.com/package/yup)
--  [Date-fns](https://date-fns.org/)
--  [AWS S3](https://aws.amazon.com/pt/s3/)
--  [Multer](https://github.com/expressjs/multer)
--  [ESLint](https://eslint.org/)
--  [Prettier](https://prettier.io/)
--  [VS Code](https://code.visualstudio.com/)
+-   [Node.js](https://nodejs.org/)
+-   [Express](https://expressjs.com/)
+-   [ReactJS](https://reactjs.org/)
+-   [React Native](https://facebook.github.io/react-native/)
+-   [Redux](https://redux.js.org/)
+-   [Redux-Saga](https://redux-saga.js.org/)
+-   [Redux-persist](https://github.com/rt2zz/redux-persist)
+-   [Styled-components](https://www.styled-components.com/)
+-   [React Navigation](https://reactnavigation.org/)
+-   [JWT](https://jwt.io/)
+-   [Immer](https://github.com/immerjs/immer)
+-   [Axios](https://github.com/axios/axios)
+-   [React-icons](https://react-icons.netlify.com/)
+-   [React-toastify](https://github.com/fkhadra/react-toastify)
+-   [Reactotron](https://infinite.red/reactotron)
+-   [Polished](https://polished.js.org/)
+-   [Yup](https://www.npmjs.com/package/yup)
+-   [Date-fns](https://date-fns.org/)
+-   [AWS S3](https://aws.amazon.com/pt/s3/)
+-   [Multer](https://github.com/expressjs/multer)
+-   [ESLint](https://eslint.org/)
+-   [Prettier](https://prettier.io/)
+-   [VS Code](https://code.visualstudio.com/)
 
-## :information_source: How to run
+## :information_source: Getting Started
+
 ### Requirements
-To run the app, you will need [Git](https://git-scm.com), [Node.js](https://nodejs.org/) v12.13.1 or higher, [Yarn](https://yarnpkg.com/), [PostgreSQL](https://www.postgresql.org/) and [Redis](https://redis.io/) installed on your computer. I strongly recommend using [Docker](https://www.docker.com/) to run the databases.
+
+To run the app, you will need:
+* [Git](https://git-scm.com)
+* [Node](https://nodejs.org/)
+* [Yarn](https://yarnpkg.com/) 
+
+I strongly recommend using [Docker](https://www.docker.com/) to run the databases.
 <br>
-If you install docker, follow this steps to install and run the docker images.
+If you decide to use docker, follow this steps to install and run the docker images.
 
 ```bash
 # install Redis image
@@ -151,15 +166,23 @@ Expo will open a page in your browser, scan the QRcode on the page and wait for 
 
 ---
 
-## :page_facing_up: License
+## :page_with_curl: License
 
 This project is under the MIT license. See the [LICENSE](https://github.com/StefanoSaffran/fastfeet/blob/master/LICENSE) for more information
 
 
 ## :mailbox_with_mail: Get in touch!
 
-[LinkedIn](https://www.linkedin.com/in/stefanosaffran/) | [Website](https://stefanosaffran.com)
+<a href="https://stefanosaffran.com" target="_blank" >
+  <img alt="Website - Stefano Saffran" src="https://img.shields.io/badge/Website--%23F8952D?style=social">
+</a>&nbsp;&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/stefanosaffran/" target="_blank" >
+  <img alt="Linkedin - Stefano Saffran" src="https://img.shields.io/badge/Linkedin--%23F8952D?style=social&logo=linkedin">
+</a>&nbsp;&nbsp;&nbsp;
+<a href="mailto:stefanoas@gmail.com" target="_blank" >
+  <img alt="Email - Stefano Saffran" src="https://img.shields.io/badge/Email--%23F8952D?style=social&logo=gmail">
+</a> 
 
 ---
 
-Made with :coffee: and ♥ by Stefano Saffran.
+Made with :coffee: and ❤️ by Stefano Saffran.
