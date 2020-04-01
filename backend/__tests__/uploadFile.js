@@ -7,7 +7,7 @@ const uploadFile = async token => {
   const { body } = await request(app)
     .post('/files')
     .attach('file', resolve(__dirname, 'assets', 'jest.png'))
-    .set('Authorization', `bearer ${token}`);
+    .set('Authorization', `Bearer ${token}`);
 
   return body;
 };
