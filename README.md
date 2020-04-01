@@ -10,7 +10,7 @@
 <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/StefanoSaffran/fastfeet?color=7D40E7">
 <img alt="Made by Stefano" src="https://img.shields.io/badge/made%20by-StefanoSaffran-%20?color=7D40E7">
 <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/fastfeet?color=7D40E7">
-<img alt="Repository size" src="https://img.shields.io/github/repo-size/StefanoSaffran/fastfeet?color=e02041">
+<img alt="Repository size" src="https://img.shields.io/github/repo-size/StefanoSaffran/fastfeet?color=7D40E7">
 <img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/fastfeet?color=7D40E7">
 </p> 
 
@@ -21,19 +21,23 @@
   <a href="#page_with_curl-license">📃 License</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#mailbox_with_mail-get-in-touch">📬 Get in touch</a>
 </p>
-<br><br>
+
+<br>
+
 ## :computer: Project 
+
+<br>
+
 <h4 align="center">
    Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
 </h4>
 <p align="center">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1585036656/fastfeet/itci3xn6yeeiq6bvvqxu.gif" height="320">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952630/fastfeet/kifhfhkis7hfk7gh9t2n.gif" height="320">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/qk966idl6gdby6ow7b40.gif" height="320">
 </p>
 
 <p align="center">
-  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" height="400">
+  <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584949678/fastfeet/n3e0rkjgzdy7ewe5ceos.gif" >
 </p>
 
 ## :rocket: Built with
