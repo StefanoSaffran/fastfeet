@@ -176,15 +176,14 @@ describe('Deliveryman', () => {
     const { body } = await getToken();
 
     const avatar = await uploadFile(body.token);
-    console.log(avatar);
 
-    const { body: deliverymanID } = await request(app)
+    const response = await request(app)
       .post('/deliveryman')
-      .send({ ...deliveryman, avatar_id: 1 })
+      .send({ ...deliveryman, avatar_id: avatar.id })
       .set('Authorization', `Bearer ${body.token}`);
 
     const { status } = await request(app)
-      .delete(`/deliveryman/${deliverymanID.id}`)
+      .delete(`/deliveryman/${response.body.id}`)
       .set('Authorization', `Bearer ${body.token}`);
 
     expect(status).toBe(204);
