@@ -1,9 +1,9 @@
-import * as Yup from 'yup';
+import { object, number } from 'yup';
 
 export default async (req, res, next) => {
   try {
-    const schema = Yup.object().shape({
-      id: Yup.number().required(),
+    const schema = object().shape({
+      id: number().required(),
     });
 
     await schema.validate(req.params, { abortEarly: false });

@@ -71,7 +71,15 @@ describe('Problems', () => {
     expect(status).toBe(401);
   });
 
-  it('should be able to cencel a delivery', async () => {
+  it('should not be able to registry a new problem if validation fail', async () => {
+    const { status } = await request(app)
+      .post(`/delivery/${999999}/problems`)
+      .send();
+
+    expect(status).toBe(400);
+  });
+
+  it('should be able to cancel a delivery', async () => {
     const deliveryFactory = await factory.attrs('Delivery');
     const recipientFactory = await factory.attrs('Recipient');
     const deliverymanFactory = await factory.attrs('Deliveryman');
@@ -112,5 +120,15 @@ describe('Problems', () => {
       .set('Authorization', `Bearer ${body.token}`);
 
     expect(status).toBe(401);
+  });
+
+  it('should not be able to cancel a delivery if validation fail', async () => {
+    const { body } = await getToken();
+
+    const { status } = await request(app)
+      .delete(`/problem/aaaaa/cancel-delivery`)
+      .set('Authorization', `Bearer ${body.token}`);
+
+    expect(status).toBe(400);
   });
 });

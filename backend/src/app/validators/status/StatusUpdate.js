@@ -1,11 +1,11 @@
-import { object, number, string } from 'yup';
+import { object, number, date } from 'yup';
 
 export default async (req, res, next) => {
   try {
     const schema = object().shape({
-      recipient_id: number().integer('Must be a number'),
-      deliveryman_id: number().integer('Must be a number'),
-      product: string(),
+      start_date: date(),
+      end_date: date(),
+      signature_id: number(),
     });
 
     await schema.validate(req.body, { abortEarly: false });
