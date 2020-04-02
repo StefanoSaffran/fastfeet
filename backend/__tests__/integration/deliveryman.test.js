@@ -198,4 +198,14 @@ describe('Deliveryman', () => {
 
     expect(status).toBe(401);
   });
+
+  it('should not be able to delete a deliveryman if validation fail', async () => {
+    const { body } = await getToken();
+
+    const { status } = await request(app)
+      .delete(`/deliveryman/aaaaa`)
+      .set('Authorization', `Bearer ${body.token}`);
+
+    expect(status).toBe(400);
+  });
 });

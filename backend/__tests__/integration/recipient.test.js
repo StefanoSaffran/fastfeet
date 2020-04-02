@@ -168,4 +168,14 @@ describe('Recipient', () => {
 
     expect(status).toBe(401);
   });
+
+  it('should not be able to delete a recipient if validation fail', async () => {
+    const { body } = await getToken();
+
+    const { status } = await request(app)
+      .delete(`/recipients/aaaaa`)
+      .set('Authorization', `Bearer ${body.token}`);
+
+    expect(status).toBe(400);
+  });
 });
