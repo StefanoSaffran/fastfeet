@@ -22,6 +22,7 @@ import validateRecipientUpdate from './app/validators/recipient/RecipientUpdate'
 import validateRecipientDelete from './app/validators/recipient/RecipientDelete';
 import validateProblemStore from './app/validators/problem/ProblemStore';
 import validateProblemDelete from './app/validators/problem/ProblemDelete';
+import validateStatusUpdate from './app/validators/status/StatusUpdate';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -32,7 +33,11 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/deliveryman/:id/deliveries', StatusController.index);
-routes.put('/deliveryman/:id/deliveries/:deliveryId', StatusController.update);
+routes.put(
+  '/deliveryman/:id/deliveries/:deliveryId',
+  validateStatusUpdate,
+  StatusController.update
+);
 
 routes.post(
   '/delivery/:id/problems',
