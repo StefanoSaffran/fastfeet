@@ -1,11 +1,11 @@
-import * as Yup from 'yup';
+import { object, number, string } from 'yup';
 
 export default async (req, res, next) => {
   try {
-    const schema = Yup.object().shape({
-      name: Yup.string(),
-      email: Yup.string().email(),
-      avatar_id: Yup.number(),
+    const schema = object().shape({
+      name: string(),
+      email: string().email(),
+      avatar_id: number(),
     });
 
     await schema.validate(req.body, { abortEarly: false });

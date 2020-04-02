@@ -1,11 +1,11 @@
-import * as Yup from 'yup';
+import { object, number, string } from 'yup';
 
 export default async (req, res, next) => {
   try {
-    const schema = Yup.object().shape({
-      recipient_id: Yup.number().integer('Must be a number'),
-      deliveryman_id: Yup.number().integer('Must be a number'),
-      product: Yup.string(),
+    const schema = object().shape({
+      recipient_id: number().integer('Must be a number'),
+      deliveryman_id: number().integer('Must be a number'),
+      product: string(),
     });
 
     await schema.validate(req.body, { abortEarly: false });
