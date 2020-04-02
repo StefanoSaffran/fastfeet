@@ -1,5 +1,3 @@
-import { object, number, date } from 'yup';
-
 import { Op } from 'sequelize';
 import { isBefore, parseISO, getHours, startOfDay, endOfDay } from 'date-fns';
 
@@ -21,7 +19,7 @@ class StatusController {
     });
 
     if (!deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman not found.' });
+      return res.status(401).json({ error: 'Deliveryman not found.' });
     }
 
     const { page = 1, delivered = false } = req.query;
@@ -88,22 +86,12 @@ class StatusController {
   }
 
   async update(req, res) {
-    const schema = object().shape({
-      start_date: date(),
-      end_date: date(),
-      signature_id: number(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails.' });
-    }
-
     const { id, deliveryId } = req.params;
 
     const deliverymanExists = await Deliveryman.findByPk(id);
 
     if (!deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman not found.' });
+      return res.status(401).json({ error: 'Deliveryman not found.' });
     }
 
     const { start_date, end_date, signature_id } = req.body;
@@ -111,14 +99,14 @@ class StatusController {
     const delivery = await Delivery.findByPk(deliveryId);
 
     if (!delivery) {
-      return res.status(400).json({ error: 'Delivery not found.' });
+      return res.status(401).json({ error: 'Delivery not found.' });
     }
 
     if (start_date) {
       const parsedStartHour = getHours(parseISO(start_date));
 
       if (parsedStartHour < 8 || parsedStartHour >= 17) {
-        return res.status(400).json({
+        return res.status(401).json({
           error: 'You must start a delivery only between 8:00 and 18:00',
         });
       }
@@ -126,20 +114,23 @@ class StatusController {
       const parsedStartDate = parseISO(start_date);
 
       if (isBefore(endOfDay(parsedStartDate), new Date())) {
-        return res.status(400).json({ error: 'Past dates are not permitted' });
+        return res.status(401).json({ error: 'Past dates are not permitted' });
       }
 
       const { count } = await Delivery.findAndCountAll({
         where: {
-          start_date: {
-            [Op.between]: [startOfDay(new Date()), endOfDay(new Date())],
-          },
           deliveryman_id: id,
+          start_date: {
+            [Op.between]: [
+              startOfDay(parsedStartDate),
+              endOfDay(parsedStartDate),
+            ],
+          },
         },
       });
 
       if (count >= 5) {
-        return res.status(400).json({
+        return res.status(401).json({
           error:
             'Error trying to start a new delivery. You already made 5 out of 5 deliveries today.',
         });
@@ -156,7 +147,7 @@ class StatusController {
       const parsedEndDate = parseISO(end_date);
 
       if (isBefore(parsedEndDate, delivery.start_date)) {
-        return res.status(400).json({
+        return res.status(401).json({
           error: 'Delivery time must be after the withdrawal time.',
         });
       }
@@ -164,7 +155,7 @@ class StatusController {
       const signature = await File.findByPk(signature_id);
 
       if (!signature) {
-        return res.status(400).json({ error: 'Signature not found.' });
+        return res.status(401).json({ error: 'Signature not found.' });
       }
 
       const updatedDelivery = await delivery.update({
