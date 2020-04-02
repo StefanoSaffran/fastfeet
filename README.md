@@ -22,15 +22,12 @@
   <a href="#mailbox_with_mail-get-in-touch">📬 Get in touch</a>
 </p>
 
-<br>
-
 ## :computer: Project 
-
-<br>
 
 <h4 align="center">
    Fastfeet is a fictitious logistics company and the application consists of an api in NodeJS, a web app in ReactJS, that allows the admin to manage recipients, deliverymen and deliveries and a mobile app in React Native, that allows the deliveryman to see and update the status of his deliveries and inform if there are any problems with it.
 </h4>
+<br>
 <p align="center">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1585036656/fastfeet/itci3xn6yeeiq6bvvqxu.gif" height="320">
   <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1584952636/fastfeet/qk966idl6gdby6ow7b40.gif" height="320">
@@ -72,7 +69,7 @@ This project was developed with the following technologies:
 
 ### Requirements
 
-To run the app, you will need:
+To run the application you will need:
 * [Git](https://git-scm.com)
 * [Node](https://nodejs.org/)
 * [Yarn](https://yarnpkg.com/) 
