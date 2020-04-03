@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  FaAngleDoubleLeft,
-  FaAngleDoubleRight,
-  FaAngleRight,
-  FaAngleLeft,
-} from 'react-icons/fa';
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 import { Container } from './styles';
 

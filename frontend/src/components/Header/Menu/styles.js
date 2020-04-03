@@ -21,7 +21,7 @@ export const Container = styled.div`
     top: 64px;
     left: 0;
     height: 92.9%;
-    z-index: 2;
+    z-index: 52;
     animation: ${props =>
       props.visible &&
       'modalFadeIn .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards'};
@@ -47,38 +47,11 @@ export const Container = styled.div`
     height: 100vh;
     top: 64px;
     left: 0;
-    z-index: 1;
+    z-index: 51;
     opacity: 0.8;
     transform: scale(1);
     animation: ${props =>
       props.visible &&
       'fadeIn 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards'};
-  }
-
-  @keyframes fadeIn {
-    0% {
-      background: rgba(0, 0, 0, 0);
-    }
-    100% {
-      background: rgba(0, 0, 0, 0.8);
-    }
-  }
-
-  @keyframes modalFadeIn {
-    0% {
-      background: rgb(255, 255, 255, 0);
-    }
-    100% {
-      background: rgb(255, 255, 255);
-    }
-  }
-
-  @keyframes modalLinksFadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 `;
