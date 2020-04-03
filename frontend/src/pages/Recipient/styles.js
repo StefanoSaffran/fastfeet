@@ -16,6 +16,8 @@ export const Container = styled.div`
     font-weight: normal;
     font-size: 24px;
     line-height: 28px;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   div.header {
@@ -31,6 +33,7 @@ export const Container = styled.div`
       height: 36px;
       border-radius: 4px;
       border: 1px solid ${colors.border};
+      margin-bottom: 10px;
     }
 
     button.add {
@@ -57,11 +60,20 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
+    h2 {
+      text-align: start;
+      margin-bottom: 0;
+    }
+
     div.header {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       margin: 30px 0 10px;
+
+      input {
+        margin-bottom: 0;
+      }
       div {
         button.add {
           margin: 0;

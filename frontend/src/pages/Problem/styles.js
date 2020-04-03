@@ -16,6 +16,8 @@ export const Container = styled.div`
     font-weight: normal;
     font-size: 24px;
     line-height: 28px;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   div.header {
@@ -57,6 +59,11 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
+    h2 {
+      text-align: start;
+      margin-bottom: 0;
+    }
+
     div.header {
       flex-direction: row;
       justify-content: space-between;
