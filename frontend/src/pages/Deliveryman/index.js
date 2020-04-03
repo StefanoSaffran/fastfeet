@@ -6,9 +6,10 @@ import { MdAdd, MdSearch } from 'react-icons/md';
 
 import Loading from '~/components/Loading';
 import Pagination from '~/components/Pagination';
+import Empty from '~/components/Empty';
 import Table from '~/components/Table';
-import history from '~/services/history';
 
+import history from '~/services/history';
 import api from '~/services/api';
 
 import { Container, InputWrapper, Body } from './styles';
@@ -60,9 +61,19 @@ export default function Deliveryman() {
           onClick: async () => {
             try {
               await api.delete(`deliveryman/${deliveryman.id}`);
-              toast.success('Entregador excluido com sucesso');
-              setPage(deliverymen.length === 1 && page > 1 ? page - 1 : page);
+              if (deliverymen.length === 1) {
+                setPage(1);
+                return;
+              }
+
+              if (totalPages > page) {
+                loadDeliverymen();
+                return;
+              }
+
               setDeliverymen(deliverymen.filter(s => s.id !== deliveryman.id));
+
+              toast.success('Entregador excluido com sucesso');
             } catch (err) {
               toast.error(
                 (err.response && err.response.data.error) ||
@@ -107,7 +118,7 @@ export default function Deliveryman() {
             </button>
           </div>
           {!deliverymen.length ? (
-            <p>Nenhum entregador encontrado...</p>
+            <Empty message="Nenhum entregador encontrado..." />
           ) : (
             <Body>
               <Table
