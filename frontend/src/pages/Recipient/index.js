@@ -7,6 +7,8 @@ import { MdAdd, MdSearch } from 'react-icons/md';
 import Loading from '~/components/Loading';
 import Pagination from '~/components/Pagination';
 import Table from '~/components/Table';
+import Empty from '~/components/Empty';
+
 import history from '~/services/history';
 import api from '~/services/api';
 
@@ -59,9 +61,20 @@ export default function Recipient() {
           onClick: async () => {
             try {
               await api.delete(`recipients/${recipient.id}`);
-              toast.success('Destinatário excluido com sucesso');
-              setPage(recipients.length === 1 && page > 1 ? page - 1 : page);
+
+              if (recipients.length === 1 && page > 1) {
+                setPage(page - 1);
+                return;
+              }
+
+              if (totalPages > page) {
+                loadRecipients();
+                return;
+              }
+
               setRecipients(recipients.filter(s => s.id !== recipient.id));
+
+              toast.success('Destinatário excluido com sucesso');
             } catch (err) {
               toast.error(
                 (err.response && err.response.data.error) ||
@@ -106,7 +119,7 @@ export default function Recipient() {
             </button>
           </div>
           {!recipients.length ? (
-            <p>Nenhum destinatário encontrado...</p>
+            <Empty message="Nenhum destinatário encontrado..." />
           ) : (
             <Body>
               <Table
