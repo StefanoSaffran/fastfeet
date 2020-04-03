@@ -5,7 +5,9 @@ import { toast } from 'react-toastify';
 
 import Loading from '~/components/Loading';
 import Pagination from '~/components/Pagination';
+import Empty from '~/components/Empty';
 import Table from '~/components/Table';
+import Modal from '~/components/Modal';
 
 import api from '~/services/api';
 
@@ -13,9 +15,17 @@ import { Container, Body } from './styles';
 
 export default function Problem() {
   const [problems, setProblems] = useState([]);
+  const [problem, setProblem] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const modalRef = React.createRef();
+
+  const handleOpen = p => {
+    setProblem(p);
+    modalRef.current.setIsComponentVisible(true);
+  };
 
   const loadProblems = async () => {
     try {
@@ -53,11 +63,20 @@ export default function Problem() {
               await api.delete(
                 `problem/${problem.delivery.id}/cancel-delivery`
               );
-              toast.success('Encomenda excluida com sucesso');
-              setPage(problems.length === 1 && page > 1 ? page - 1 : page);
+              if (problems.length === 1) {
+                setPage(1);
+                return;
+              }
+
+              if (totalPages > page) {
+                loadProblems();
+                return;
+              }
+
               setProblems(
                 problems.filter(s => s.delivery.id !== problem.delivery.id)
               );
+              toast.success('Encomenda excluida com sucesso');
             } catch (err) {
               toast.error(
                 (err.response && err.response.data.error) ||
@@ -75,32 +94,45 @@ export default function Problem() {
   };
 
   return (
-    <Container>
-      {loading ? (
-        <Loading type="spinner" />
-      ) : (
-        <>
-          <h2>Problemas na entrega</h2>
-          {!problems.length ? (
-            <p>Nenhuma encomenda com problemas no momento...</p>
-          ) : (
-            <Body>
-              <Table
-                data={problems}
-                column="problems"
-                handleCancel={handleCancel}
-              />
-              {totalPages > 1 && (
-                <Pagination
-                  page={page}
-                  totalPages={totalPages}
-                  setPage={setPage}
+    <>
+      <Container>
+        {loading ? (
+          <Loading type="spinner" />
+        ) : (
+          <>
+            <h2>Problemas na entrega</h2>
+            {!problems.length ? (
+              <Empty message="Nenhuma encomenda com problemas no momento..." />
+            ) : (
+              <Body>
+                <Table
+                  data={problems}
+                  column="problems"
+                  handleCancel={handleCancel}
+                  handleOpen={handleOpen}
                 />
-              )}
-            </Body>
-          )}
-        </>
-      )}
-    </Container>
+                {totalPages > 1 && (
+                  <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    setPage={setPage}
+                  />
+                )}
+              </Body>
+            )}
+          </>
+        )}
+      </Container>
+      <Modal ref={modalRef} height={400}>
+        {problem ? (
+          <>
+            <h3>DESCRIÇÃO DO PROBLEMA</h3>
+            <p>{problem.description}</p>
+          </>
+        ) : (
+          <Loading type="spinner" />
+        )}
+      </Modal>
+    </>
   );
 }
