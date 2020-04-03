@@ -1,24 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { MdRemoveRedEye, MdDeleteForever } from 'react-icons/md';
 import LinesEllipsis from 'react-lines-ellipsis';
 
 import Actions from '~/components/ActionsMenu';
-import Loading from '~/components/Loading';
-import Modal from '~/components/Modal';
 
 import { Container } from './styles';
 
-export default function TBodyProblems({ data, handleCancel }) {
-  const [problem, setProblem] = useState(null);
-
-  const modalRef = React.createRef();
-
-  const handleOpen = p => {
-    setProblem(p);
-    modalRef.current.setIsComponentVisible(true);
-  };
-
+export default function TBodyProblems({ data, handleCancel, handleOpen }) {
   return (
     <>
       <Container>
@@ -47,16 +36,6 @@ export default function TBodyProblems({ data, handleCancel }) {
           </tr>
         ))}
       </Container>
-      <Modal ref={modalRef} height={400}>
-        {problem ? (
-          <>
-            <h3>DESCRIÇÃO DO PROBLEMA</h3>
-            <p>{problem.description}</p>
-          </>
-        ) : (
-          <Loading type="spinner" />
-        )}
-      </Modal>
     </>
   );
 }

@@ -9,14 +9,24 @@ import TBodyProblems from './TBody/TBodyProblems';
 
 import { Container } from './styles';
 
-export default function Table({ data, column, handleDelete, handleCancel }) {
+export default function Table({
+  data,
+  column,
+  handleDelete,
+  handleCancel,
+  handleOpen,
+}) {
   const columnsName = columns[column];
 
   return (
     <Container>
       <THead columns={columnsName} />
       {column === 'deliveries' && (
-        <TBDeliveries data={data} handleDelete={handleDelete} />
+        <TBDeliveries
+          data={data}
+          handleDelete={handleDelete}
+          handleOpen={handleOpen}
+        />
       )}
       {column === 'deliverymen' && (
         <TBDeliverymen data={data} handleDelete={handleDelete} />
@@ -25,7 +35,11 @@ export default function Table({ data, column, handleDelete, handleCancel }) {
         <TBRecipients data={data} handleDelete={handleDelete} />
       )}
       {column === 'problems' && (
-        <TBodyProblems data={data} handleCancel={handleCancel} />
+        <TBodyProblems
+          data={data}
+          handleCancel={handleCancel}
+          handleOpen={handleOpen}
+        />
       )}
     </Container>
   );

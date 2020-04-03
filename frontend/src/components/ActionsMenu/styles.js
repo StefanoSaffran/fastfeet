@@ -10,12 +10,13 @@ export const Container = styled.div`
 
   button.dots {
     height: 50px;
-    z-index: 100;
+    z-index: 50;
   }
 
   button {
     background: none;
     border: 0;
+  }
 `;
 
 export const ActionsContainer = styled.div`
@@ -30,6 +31,7 @@ export const ActionsContainer = styled.div`
   padding: 0 15px;
   z-index: 101;
   display: ${({ visible }) => (visible ? 'block' : 'none')};
+  animation: 0.8s ease-out actionsSmoothEntry;
 
   &::before {
     content: '';

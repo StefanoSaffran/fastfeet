@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
 
 import colors from '~/styles/colors';
 
@@ -16,18 +15,6 @@ export const Container = styled.div`
   animation: ${props =>
     props.visible &&
     'unfoldIn 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards'};
-
-  @keyframes unfoldIn {
-    0% {
-      transform: scaleY(0.005) scaleX(0);
-    }
-    50% {
-      transform: scaleY(0.005) scaleX(1);
-    }
-    100% {
-      transform: scaleY(1) scaleX(1);
-    }
-  }
 `;
 
 export const Content = styled.div`
@@ -49,16 +36,17 @@ export const Content = styled.div`
   h3 {
     font-weight: bold;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 19px;
+    letter-spacing: 0px;
 
     color: ${colors.darkGray};
     margin-bottom: 7px;
   }
 
   p {
-    font-weight: normal;
+    letter-spacing: 0px;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 26px;
     color: ${colors.gray};
   }
 
@@ -66,25 +54,12 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 
-    span {
-      font-size: 14px;
-      line-height: 19px;
-      color: ${colors.darkGray};
-    }
-
     div + div {
-      padding-top: 15px;
-      margin-top: 15px;
+      padding-top: 12px;
+      margin-top: 12px;
       border-top: 1px solid ${colors.lightBorder};
     }
 
-    div:first-child {
-      padding-bottom: 40px;
-    }
-
-    div:nth-last-child(2) {
-      padding-bottom: 20px;
-    }
     div:last-child {
       display: flex;
       flex-direction: column;
@@ -92,15 +67,6 @@ export const Content = styled.div`
         width: 100%;
         height: 70px;
       }
-    }
-  }
-
-  @keyframes zoomIn {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
     }
   }
 `;

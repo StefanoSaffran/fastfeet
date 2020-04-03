@@ -32,5 +32,6 @@ export const Container = styled.div`
 
     font-weight: bold;
     color: ${darken(0.08, `${colors.primary}`)};
+    animation: 0.3s ease-out 0s 1 slideIn;
   }
 `;
