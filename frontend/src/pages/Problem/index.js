@@ -51,17 +51,17 @@ export default function Problem() {
     loadProblems();
   }, [page]); //eslint-disable-line
 
-  const handleCancel = problem => {
+  const handleCancel = problemToCancel => {
     confirmAlert({
       title: 'Confirme o cancelamento',
-      message: `Deseja cancelar a encomenda ${problem.delivery.id} ?`,
+      message: `Deseja cancelar a encomenda ${problemToCancel.delivery.id} ?`,
       buttons: [
         {
           label: 'Yes',
           onClick: async () => {
             try {
               await api.delete(
-                `problem/${problem.delivery.id}/cancel-delivery`
+                `problem/${problemToCancel.delivery.id}/cancel-delivery`
               );
               if (problems.length === 1) {
                 setPage(1);
@@ -74,7 +74,9 @@ export default function Problem() {
               }
 
               setProblems(
-                problems.filter(s => s.delivery.id !== problem.delivery.id)
+                problems.filter(
+                  s => s.delivery.id !== problemToCancel.delivery.id
+                )
               );
               toast.success('Encomenda excluida com sucesso');
             } catch (err) {

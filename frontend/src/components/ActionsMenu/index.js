@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { MdMoreHoriz } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import useMenuVisible from '~/helpers/hooks/useMenuVisible';
 
@@ -33,3 +34,12 @@ export default function ActionsMenu({ children, height, width }) {
     </Container>
   );
 }
+
+ActionsMenu.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+};

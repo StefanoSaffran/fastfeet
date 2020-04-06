@@ -28,36 +28,3 @@ export const statusInfo = {
     title: 'CANCELADA',
   },
 };
-
-export const avatarColors = {
-  0: {
-    color: '#a28fd0',
-  },
-  1: {
-    color: '#a8d080',
-  },
-  2: {
-    color: '#cb946c',
-  },
-  3: {
-    color: '#83cec9',
-  },
-  4: {
-    color: '#cc7584',
-  },
-  5: {
-    color: '#ee9911',
-  },
-  6: {
-    color: '#cccc8b',
-  },
-  7: {
-    color: '#f02b6e',
-  },
-  8: {
-    color: '#ffae99',
-  },
-  9: {
-    color: '#0f6a55',
-  },
-};
