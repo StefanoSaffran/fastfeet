@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { MdRemoveRedEye, MdDeleteForever } from 'react-icons/md';
-import LinesEllipsis from 'react-lines-ellipsis';
 
 import Actions from '~/components/ActionsMenu';
 
@@ -15,7 +14,7 @@ export default function TBodyProblems({ data, handleCancel, handleOpen }) {
           <tr key={item.id}>
             <td>#{item.delivery.id}</td>
             <td>
-              <LinesEllipsis text={item.description} basedOn="letters" />
+              <span>{item.description}</span>
             </td>
             <td>
               <Actions height={95} width={200}>
