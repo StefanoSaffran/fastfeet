@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { MdRemoveRedEye, MdDeleteForever } from 'react-icons/md';
 
 import Actions from '~/components/ActionsMenu';
@@ -38,3 +39,9 @@ export default function TBodyProblems({ data, handleCancel, handleOpen }) {
     </>
   );
 }
+
+TBodyProblems.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+};

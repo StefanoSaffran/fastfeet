@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { MdRemoveRedEye, MdEdit, MdDeleteForever } from 'react-icons/md';
 
 import Status from '../Status';
@@ -9,7 +10,7 @@ import history from '~/services/history';
 
 import { Container } from './styles';
 
-export default function TBody({ data, handleDelete, handleOpen }) {
+export default function TBodyDeliveries({ data, handleDelete, handleOpen }) {
   return (
     <Container>
       {data.map(item => (
@@ -61,3 +62,9 @@ export default function TBody({ data, handleDelete, handleOpen }) {
     </Container>
   );
 }
+
+TBodyDeliveries.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+};

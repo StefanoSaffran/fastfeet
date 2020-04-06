@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { MdFiberManualRecord } from 'react-icons/md';
 
 import { statusInfo } from '~/styles/colors';
@@ -20,3 +21,7 @@ export default function Status({ status }) {
     </>
   );
 }
+
+Status.propTypes = {
+  status: PropTypes.string.isRequired,
+};

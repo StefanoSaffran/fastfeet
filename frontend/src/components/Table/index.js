@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { columns } from '~/helpers/columns';
 import THead from './THead';
 import TBDeliveries from './TBody/TBodyDeliveries';
@@ -44,3 +46,17 @@ export default function Table({
     </Container>
   );
 }
+
+Table.defaultProps = {
+  handleDelete: null,
+  handleCancel: null,
+  handleOpen: null,
+};
+
+Table.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  column: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func,
+  handleCancel: PropTypes.func,
+  handleOpen: PropTypes.func,
+};

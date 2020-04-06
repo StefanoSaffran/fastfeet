@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Container, Tr } from './styles';
 
 export default function THead({ columns }) {
@@ -18,3 +20,7 @@ export default function THead({ columns }) {
     </Container>
   );
 }
+
+THead.propTypes = {
+  columns: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+};

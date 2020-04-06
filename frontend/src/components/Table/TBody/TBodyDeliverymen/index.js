@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { MdEdit, MdDeleteForever } from 'react-icons/md';
 
 import history from '~/services/history';
@@ -49,3 +50,8 @@ export default function TBodyDeliverymen({ data, handleDelete }) {
     </Container>
   );
 }
+
+TBodyDeliverymen.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
