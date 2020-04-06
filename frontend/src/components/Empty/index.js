@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Container } from './styles';
 
 export default function Empty({ message }) {
@@ -9,3 +11,7 @@ export default function Empty({ message }) {
     </Container>
   );
 }
+
+Empty.propTypes = {
+  message: PropTypes.string.isRequired,
+};
