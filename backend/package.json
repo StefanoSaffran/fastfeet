@@ -12,7 +12,7 @@
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "dependencies": {
-    "aws-sdk": "^2.614.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
     "bee-queue": "^1.2.3",
     "cors": "^2.8.5",
